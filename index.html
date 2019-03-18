@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<title>Loser Quality</title>
+	<head>
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	<body>
+		<div class="header">
+			<h1>Loser Quality - We dumb.</h1>
+
+		<ul class="nav">
+			<li><a class="active" href="default.html">Upload</a></li>
+			<li><a href="why.html">Verify</a></li>
+			<li><a href="images.html">Review</a></li>
+
+		</ul>
+	  </div>
+	  <div class="body-content">
+
+		<p>Upload a file to continue and stuff. We don't know what we're doing. Ketu? More like dumb. Gotem. Lorem ipsum jncaon hndahibajscdkc dn sdk cjcnc aijskjkc ikmc cakmcei macdl. 
+		</p>
+
+		<p>Click upload to start uploading files.</p>
+
+		<!-- Open modal view -->
+		<button id = "uploadBtn">Upload Files</button>
+
+		<!-- Modal view -->
+		<div id = "uploadModal" class = "modal">
+
+			<!-- Modal content -->
+			<div class = "modal-content">
+				<div class = "modal-header">
+					<span class = "close">&times;</span>
+					<h2>Upload files in here...</h2>
+				</div>
+
+				<!-- Progress bar -->
+				<progress id="progress-bar" max=100 value=0></progress>
+
+				<div id="drop-area">
+  					<form class="my-form">
+    					<p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+
+    					<!-- Progress bar -->
+						<progress id="progress-bar" max=100 value=0></progress>
+						
+    					<input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+    					<label class="button" for="fileElem">Select some files</label>
+  					</form>
+				</div>
+
+			</div>
+		</div>
+	  </div>	
+
+	  <!-- Modal Script -->
+	  <script>
+	  		// Get the modal
+			var modal = document.getElementById('uploadModal');
+
+			// Get the button that opens the modal
+			var btn = document.getElementById("uploadBtn");
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+
+			// When the user clicks the button, open the modal 
+			btn.onclick = function() {
+  				modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+  				modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+  				if (event.target == modal) {
+    				modal.style.display = "none";
+  				}
+			}
+	  </script>
+
+	  <!-- File upload area -->
+	  <script> 
+	  	let dropArea = document.getElementById('drop-area')
+  			dropArea.addEventListener('dragenter', handlerFunction, false)
+  			dropArea.addEventListener('dragleave', handlerFunction, false)
+  			dropArea.addEventListener('dragover', handlerFunction, false)
+  			dropArea.addEventListener('drop', handlerFunction, false)
+	  </script>
+
+	  <!-- Drag and drop -->
+	  <script>
+	  		let dropArea = document.getElementById('drop-area')
+
+	  		;['dragenter', 'dragover'].forEach(eventName => {
+  				dropArea.addEventListener(eventName, highlight, false)
+			})
+
+			;['dragleave', 'drop'].forEach(eventName => {
+  				dropArea.addEventListener(eventName, unhighlight, false)
+			})
+
+			function highlight(e) {
+  				dropArea.classList.add('highlight')
+			}
+
+			function unhighlight(e) {
+  				dropArea.classList.remove('highlight')
+			}
+
+			// File handler 
+			dropArea.addEventListener('drop', handleDrop, false)
+
+			function handleDrop(e) {
+  				let dt = e.dataTransfer
+  				let files = dt.files
+  				handleFiles(files)
+			}
+
+			function handleFiles(files) {
+  				([...files]).forEach(uploadFile)
+			}
+
+			function uploadFile(file) {
+  				let url = 'YOUR URL HERE'
+  				let formData = new FormData()
+
+  				formData.append('file', file)
+
+  				fetch(url, {
+    				method: 'POST',
+    				body: formData
+  				})
+  				.then(() => { /* Done. Inform the user */ })
+  				.catch(() => { /* Error. Inform the user */ })
+			}
+
+			// You guys know I'm dummmbb. I mean I kinda get how to make a file uplaoder now, but my source is here:  
+			// https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+			// The file handler is in the middle of the page. Halfway down.
+	  </script>
+
+
+	</body>
+</html>
