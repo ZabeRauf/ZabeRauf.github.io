@@ -67,6 +67,29 @@
     		messagingSenderId: "234109453972"
   		};
   		firebase.initializeApp(config);
+  		const storageService = firebase.storage();
+		const storageRef = storageService.ref();
+
+		document.querySelector('.file-select).addEventListener('change', handleFileUploadChange);
+		document.querySelector('.file-submit).addEventListener('click', handleFileUploadSubmit);
+
+			let selectedFile;
+			handleFileUploadChange(e) {
+  				selectedFile = e.target.files[0];
+			}
+
+		handleFileUploadSubmit(e) {
+  			const uploadTask = storageRef.child(`images/${selectedFile.name}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
+  			uploadTask.on('state_changed', (snapshot) => {
+  			// Observe state change events such as progress, pause, and resume
+  			}, (error) => {
+    			// Handle unsuccessful uploads
+    			console.log(error);
+  			}, () => {
+     			// Do something once upload is complete
+     			console.log('success');
+  			});
+		}
 	  </script>
 
 	  <!-- Modal Script -->
@@ -96,68 +119,10 @@
     				modal.style.display = "none";
   				}
 			}
-	  </script>
-
-	  <!-- File upload area -->
-	  <script> 
-	  	let dropArea = document.getElementById('drop-area')
-  			dropArea.addEventListener('dragenter', handlerFunction, false)
-  			dropArea.addEventListener('dragleave', handlerFunction, false)
-  			dropArea.addEventListener('dragover', handlerFunction, false)
-  			dropArea.addEventListener('drop', handlerFunction, false)
-	  </script>
-
-	  <!-- Drag and drop -->
-	  <script>
-	  		let dropArea = document.getElementById('drop-area')
-
-	  		;['dragenter', 'dragover'].forEach(eventName => {
-  				dropArea.addEventListener(eventName, highlight, false)
-			})
-
-			;['dragleave', 'drop'].forEach(eventName => {
-  				dropArea.addEventListener(eventName, unhighlight, false)
-			})
-
-			function highlight(e) {
-  				dropArea.classList.add('highlight')
-			}
-
-			function unhighlight(e) {
-  				dropArea.classList.remove('highlight')
-			}
-
-			// File handler 
-			dropArea.addEventListener('drop', handleDrop, false)
-
-			function handleDrop(e) {
-  				let dt = e.dataTransfer
-  				let files = dt.files
-  				handleFiles(files)
-			}
-
-			function handleFiles(files) {
-  				([...files]).forEach(uploadFile)
-			}
-
-			function uploadFile(file) {
-  				let url = 'https://csci4710-groupstuff.firebaseio.com'
-  				let formData = new FormData()
-
-  				formData.append('file', file)
-
-  				fetch(url, {
-    				method: 'POST',
-    				body: formData
-  				})
-  				.then(() => { /* Done. Inform the user */ })
-  				.catch(() => { /* Error. Inform the user */ })
-			}
 
 			// You guys know I'm dummmbb. I mean I kinda get how to make a file uplaoder now, but my source is here:  
 			// https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 			// The file handler is in the middle of the page. Halfway down.
 	  </script>
-
 	</body>
 </html>
