@@ -36,24 +36,38 @@
 					<h2>Upload files in here...</h2>
 				</div>
 
-				<!-- Progress bar -->
-				<progress id="progress-bar" max=100 value=0></progress>
-
 				<div id="drop-area">
   					<form class="my-form">
-    					<p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+    					<p>Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region.</p>
 
     					<!-- Progress bar -->
 						<progress id="progress-bar" max=100 value=0></progress>
 						
-    					<input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
-    					<label class="button" for="fileElem">Select some files</label>
+    					<div id="filesubmit">
+  							<input type="file" class="file-select" accept="image/*"/>
+  							<button class="file-submit">SUBMIT</button>
+						</div>
   					</form>
 				</div>
 
 			</div>
 		</div>
 	  </div>	
+
+	  <!-- Firebase backend stuff -->
+	  <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
+	  <script>
+  		// Initialize Firebase
+  		var config = {
+    		apiKey: "AIzaSyBuqq2mPkqxkKL5jgPz4zmNjyw7XTnfcm0",
+    		authDomain: "csci4710-groupstuff.firebaseapp.com",
+    		databaseURL: "https://csci4710-groupstuff.firebaseio.com",
+    		projectId: "csci4710-groupstuff",
+    		storageBucket: "csci4710-groupstuff.appspot.com",
+    		messagingSenderId: "234109453972"
+  		};
+  		firebase.initializeApp(config);
+	  </script>
 
 	  <!-- Modal Script -->
 	  <script>
@@ -144,7 +158,6 @@
 			// https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 			// The file handler is in the middle of the page. Halfway down.
 	  </script>
-
 
 	</body>
 </html>
