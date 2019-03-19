@@ -6,7 +6,7 @@
 	</head>
 
 	<body>
-		<div class="header">
+	  <div class="header">
 			<h1>Loser Quality - We dumb.</h1>
 
 		<ul class="nav">
@@ -70,8 +70,8 @@
   		const storageService = firebase.storage();
 		const storageRef = storageService.ref();
 
-		document.querySelector('.file-select).addEventListener('change'+ handleFileUploadChange');
-		document.querySelector('.file-submit).addEventListener('click' + handleFileUploadSubmit');
+		document.querySelector('.file-select).addEventListener('change', handleFileUploadChange');
+		document.querySelector('.file-submit).addEventListener('click', handleFileUploadSubmit');
 
 		let selectedFile;
 		handleFileUploadChange(e) {
